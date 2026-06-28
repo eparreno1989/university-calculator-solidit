@@ -1,0 +1,35 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract UniversityCalculator {
+    
+    // 1. Declare the contract administrator
+    address public admin;
+
+    // 2. Initialize the contract admin
+    constructor() {
+        admin = msg.sender;
+    }
+
+    /// @notice Sums two positive grades
+    function sumGrades(uint256 _grade1, uint256 _grade2) public pure returns (uint256) {
+       
+        return _grade1 + _grade2;
+    }
+
+    /// @notice Subtracts two grades
+    function subGrades(uint256 _grade1, uint256 _grade2) public pure returns (uint256) {
+        // Ensure the result cannot negative 
+        require(_grade1 >= _grade2, "The result cannot negativo");
+        return _grade1 - _grade2;
+    }
+
+    /// @notice Calculate the average of three grades.
+    function averageGrades(uint256 _g1, uint256 _g2, uint256 _g3) public view returns (uint256) {
+        // 1. validate if is the owner of the contract
+        require(msg.sender == admin, "Only the owner can calculate grades");
+        
+        // 2. Verify if the caller is the contract administrator
+        return (_g1 + _g2 + _g3) / 3;
+    }
+}
